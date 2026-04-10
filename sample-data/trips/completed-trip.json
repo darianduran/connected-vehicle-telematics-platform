@@ -1,0 +1,66 @@
+{
+  "_comment": "Final trip artifact written to the trip-history table after the Trip Processor Lambda processes the archive.",
+  "pseudoVIN": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+  "sk": "TRIP#2025-06-12#trip_20250612_081501_a1b2c3",
+  "tripId": "trip_20250612_081501_a1b2c3",
+  "tripDate": "2025-06-12",
+  "status": "completed",
+  "startTime": "2025-06-12T08:15:01.000Z",
+  "endTime": "2025-06-12T08:29:40.000Z",
+  "startLocation": {
+    "lat": 12.345678,
+    "lng": -23.456789,
+    "address": "123 Example St, Sample City, ST 00001"
+  },
+  "endLocation": {
+    "lat": 12.426200,
+    "lng": -23.469100,
+    "address": "456 Example Ave, Sample City, ST 00002"
+  },
+  "distanceMiles": 6.6,
+  "durationMinutes": 14.65,
+  "maxSpeedMph": 45.7,
+  "avgSpeedMph": 27.0,
+  "energyConsumedKwh": 2.52,
+  "startBattery": 82,
+  "endBattery": 78,
+  "startOdometer": 12000.000,
+  "endOdometer": 12006.600,
+  "breadcrumbCount": 879,
+  "drivingScore": 88,
+  "safetyEvents": [
+    {
+      "type": "hard_braking",
+      "timestamp": "2025-06-12T08:23:18.000Z",
+      "lat": 12.386100,
+      "lng": -23.463200,
+      "severity": "moderate",
+      "details": {
+        "peakLongitudinalAccel": -5.50,
+        "peakLongitudinalAccelG": -0.56,
+        "thresholdG": -0.45,
+        "durationMs": 1800,
+        "absActivated": true,
+        "signalSource": "RCM_longitudinalAccel",
+        "brakeTorqueFL": 1840,
+        "brakeTorqueFR": 1820,
+        "brakeTorqueRL": 980,
+        "brakeTorqueRR": 960
+      }
+    }
+  ],
+  "scorePenalties": {
+    "speeding": 0,
+    "hardBraking": -8,
+    "hardAcceleration": 0,
+    "aggressiveTurning": -4
+  },
+  "tripConditions": {
+    "weatherRainy": false,
+    "weatherSnowy": false,
+    "avgAmbientTemp": 25.1,
+    "nightDriving": false
+  },
+  "s3ArchiveKey": "trips/a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2/trip_20250612_081501_a1b2c3.gz",
+  "processedAt": "2025-06-12T08:30:12.000Z"
+}
