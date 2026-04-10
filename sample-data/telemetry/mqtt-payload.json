@@ -1,0 +1,35 @@
+{
+  "_comment": "Sample MQTT payload published by the edge device to IoT Core via basic ingest ($aws/rules/{rule-name}). The edge device publishes signals that have changed since the last transmission. High-frequency signals like locaiton and speed are updated nearly every cycle, while less-frequent signals like weather or fluid level data are only included when their value changes. Signal names are ripped directly from the DBC file.",
+  "vin": "[REDACTED]",
+  "timestamp": "2025-03-22T16:12:03.000Z",
+  "firmwareVersion": "2024.38.6",
+  "signals": {
+    "DI_vehicleSpeed": 45.10,
+    "DI_gear": 4,
+    "DI_odometer": 12000.000,
+    "DI_axleSpeed": 498.2,
+    "DI_torqueActual": 18.5,
+
+    "BMS_socUI": 78.0,
+    "BMS_packVoltage": 396.76,
+    "BMS_packCurrent": 12.4,
+
+    "RCM_longitudinalAccel": 0.30,
+    "RCM_lateralAccel": -0.005,
+    "RCM_yawRate": 0.0,
+
+    "UI_latitude": 12.345678,
+    "UI_longitude": -23.456789,
+    "UI_gpsVehicleHeading": 90.0,
+    "UI_gpsVehicleSpeed": 44.8,
+    "UI_gpsAccuracy": 2.3,
+
+    "SCCM_steeringAngle": 0.0,
+
+    "ESP_brakeTorqueFL": 0,
+    "ESP_brakeTorqueFR": 0,
+    "ESP_brakeTorqueRL": 0,
+    "ESP_brakeTorqueRR": 0,
+    "ESP_absBrakeEvent2": 0
+  }
+}
