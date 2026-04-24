@@ -67,19 +67,24 @@ The platform is organized into five architectural concerns.
 *Figure 3: Trip Processing Flow*
 ![Trip Processing Flow](../diagrams/trip-processing-flow.png)
 
-### 2.2.3 Dashboard SSE Delivery
+### 2.2.3 Trip Processing
 
-*Figure 4: Dashboard SSE Flow*
+*Figure 4: Predictive Maintenance Flow*
+![Predictive Maintenance Flow](../diagrams/predictive-maintenance-flow.png)
+
+### 2.2.4 Dashboard SSE Delivery
+
+*Figure 5: Dashboard SSE Flow*
 ![Dashboard SSE Flow](../diagrams/dashboard-sse-flow.png)
 
-### 2.2.4 Vehicle Command Execution
+### 2.2.5 Vehicle Command Execution
 
-*Figure 5: Vehicle Command Execution Flow*
+*Figure 6: Vehicle Command Execution Flow*
 ![Vehicle Command Execution Flow](../diagrams/vehicle-command-execution-flow.png)
 
-### 2.2.5 Alert and Dashcam Processing
+### 2.2.6 Alert and Dashcam Processing
 
-*Figure 6: Alert and Dashcam Flow*
+*Figure 7: Alert and Dashcam Flow*
 ![Alert and Dashcam Flow](../diagrams/alert-dashcam-flow.png)
 
 ---
@@ -116,7 +121,7 @@ VPC Gateway Endpoints for S3 and DynamoDB allow free and private connectivity to
 
 ## 2.5 Defense in Depth Layers
 
-*Figure 7: Defense-in-Depth Security Model*
+*Figure 8: Defense-in-Depth Security Model*
 ![Defense in Depth Diagram](../diagrams/defense-in-depth.png)
 
 Security is layered so that no single point of failure exposes data. Additional details can be referenced in the *Security and Resilience* document.
