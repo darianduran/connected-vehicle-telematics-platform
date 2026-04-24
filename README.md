@@ -1,4 +1,4 @@
-# Connected Vehicle Telematics Platform (AWS Architecture)
+# Connected Vehicle Telematics Platform - AWS Architecture
 
 > Author: Darian Duran | [LinkedIn](https://linkedin.com/in/darianduran)
 
