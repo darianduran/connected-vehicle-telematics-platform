@@ -5,12 +5,32 @@
 
 This project contains a complete solution architecture documentation package for a vehicle telematics platform built on AWS. It started as a personal project to control my car remotely but eventually turned into a full telematics solution. 
 
-The architecture and documentation are structured the way I'd deliver a real production deployment but with cost efficiency suitable for smaller organizations or individual owners. All documentation including diagrams and architecture decision records (ADRs) can be found in the `documentation/` directory. Terraform infrastructure code (IaC) is included in the `iac/` directory. Real examples of processed data can be found in the `sample-data/` directory.
+The architecture and documentation are structured the way I'd deliver a real production deployment but with cost efficiency suitable for smaller organizations or individual owners. All documentation including diagrams and architecture decision records (ADRs) can be found in the `documentation/` directory. Terraform infrastructure code (IaC) is included in the `iac/` directory. Example telemetry and trip payloads can be found in the `sample-data/` directory.
 
-> **Note:** 
-> - The solution architecture documentation reflects the full platform design.
-> - Terraform IaC is being finalized and expected to release shortly
-> - Edge Device installation guide and additional demos will follow after.
+---
+
+## Start Here
+
+A few quick links depending on what you want to see:
+
+
+- [Project Overview](documentation/solution-architecture-package/01-project-overview-and-scope.md)
+- [AWS Solution Architecture](documentation/solution-architecture-package/02-aws-environment-design.md)
+- [Architecture Decision Records (ADRs)](documentation/architecture-decision-records/)
+- [Visual Diagrams](documentation/diagrams/)
+- [Terraform IaC](iac/)
+
+---
+
+## What This Project Demonstrates
+
+- **Solution architecture:** Complete AWS design across compute, data, streaming, networking, and security.
+- **Service selection:** Documented trade-off analysis of service selection decisions recorded in ADRs.
+- **Resilience and DR:** Tiered recovery objectives, graceful degradation info, and cross region replication.
+- **Cost engineering:** Cost modeling at different platform scales and future cost optimization efforts.
+- **Security posture:** Defense-in-depth controls, data protection, and policies.
+- **Infrastructure-as-code:** Terraform modules for deployment and reusability.
+- **Real-time engineering:** Sub-second ingestion, pub/sub, and async data processing.
 
 ---
 
@@ -33,22 +53,32 @@ In the background, the platform is constantly analyzing incoming data. It detect
 
 ## Architecture Overview
 
-The platform is built entirely on AWS using managed services wherever possible. Vehicles transmit telemetry over MQTT to AWS IoT Core. From there, data flows through Kinesis into a consumer service that pseudonymizes vehicle identifiers, persists state to DynamoDB, archives to S3 via Firehose, and publishes live updates through ElastiCache Valkey to the SSE streaming service. Dashboards update within seconds of the vehicle generating the data.
-
 ![Executive Architecture Diagram](documentation/diagrams/aws-executive-diagram.png)
 
-### Key Design Highlights
+### AWS Service Stack
 
-| Highlight | Summary |
-|---|---|
-| Subsecond ingestion | IoT Core to Kinesis to consumer service pipeline with per-vehicle ordering |
-| Live dashboards | Valkey pub/sub to SSE with automatic DynamoDB polling fallback if the stream drops |
-| Multi-tenant isolation | Cognito JWT claims enforce data separation at the API and data store level |
-| PII protection | VINs are pseudonymized at the ingestion boundary before reaching any data store |
-| Cost-optimized | Runs under $400/mo at 100 vehicles. Architecture decisions documented in ADRs have continuously driven costs down |
-| Reliable fallbacks | Every core workflow has a degradation path. Nothing goes fully offline from a single component failure |
+- **Compute:** ECS Fargate and Lambda.
 
+- **Data:** DynamoDB, S3, Timestream for InfluxDB, and ElastiCache Valkey.
 
+- **Streaming & Messaging:** IoT Core, Kinesis Data Streams, Kinesis Firehose, SQS, SNS, and EventBridge.
+
+- **Edge & API:** CloudFront, API Gateway, Cognito, WAF, Route 53, and ACM.
+
+- **Security:** KMS, Secrets Manager, GuardDuty, CloudTrail, and SSM Parameter Store.
+
+- **Observability:** CloudWatch.
+
+- **Enrichment:** Location Service and Athena.
+
+- **IaC:** Terraform.
+
+At a high level, data flows through four stages:
+
+1. **Ingestion.** Vehicles publish telemetry over MQTT to AWS IoT Core.
+2. **Processing and fan-out.** A Telemetry Consumer Service on ECS Fargate pulls records from Kinesis and processes the data. The data is fans out to DynamoDB for operational state, Kinesis Firehose for archival, ElastiCache Valkey for live pub/sub, Timestream for predictive maintenance, and SQS/SNS for downstream analytics.
+3. **Real-time delivery.** An SSE Streaming Service subscribes to Valkey and pushes live updates to browser dashboards in  seconds.
+4. **Async workflows.** Trip processing, geofence evaluation, dashcam media handling, and predictive maintenance run in parallel through Lambda, EventBridge, and Timestream for InfluxDB.
 ---
 
 ## Solution Architecture Documentation
@@ -95,3 +125,17 @@ Key architectural choices are documented as ADRs. Each record captures the conte
 | [breadcrumb-archive.json](sample-data/telemetry/breadcrumb-archive.json) | Archived telemetry breadcrumb data from Firehose |
 | [mqtt-payload.json](sample-data/telemetry/mqtt-payload.json) | Raw MQTT payload as received by IoT Core |
 | [completed-trip.json](sample-data/trips/completed-trip.json) | Processed trip record after pipeline completion |
+
+---
+
+## Roadmap
+
+- Remaining Terraform modules and environments
+- Edge Device installation guide and demo walkthrough
+- Recorded architecture walkthrough
+
+---
+
+## Contact
+
+Feedback, questions, or collaboration ideas are welcome. Reach out via [LinkedIn](https://linkedin.com/in/darianduran).
